@@ -22,8 +22,19 @@
         android:id="@+id/btnGetJoke"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="GET JOKE"
-        android:textSize="24sp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSchedule"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnSchedule"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Schedule Joke"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
