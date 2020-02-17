@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         scheduleJokeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scheduleJoke();
+                scheduleJokeWithWorkManager();
             }
         });
 
@@ -89,9 +89,14 @@ public class MainActivity extends AppCompatActivity {
                 am, AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 20000, pendingIntent);
     }
 
+    private void scheduleJokeWithWorkManager() {
+            JokeService.enqeue(this);
+    }
+
     @Override
     protected void onStart() {
         JokeNotification.cancel(this);
+        JokeService.cancel(this);
         super.onStart();
     }
 }
