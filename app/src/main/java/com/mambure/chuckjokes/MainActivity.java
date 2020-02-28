@@ -1,7 +1,10 @@
 package com.mambure.chuckjokes;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.AlarmManagerCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -38,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button getJokeButton = findViewById(R.id.btnGetJoke);
         getJokeButton.setOnClickListener(v -> getJoke());
+
+        Button scheduleButton = findViewById(R.id.btnSchedule);
+        scheduleButton.setOnClickListener(v -> scheduleJoke());
 
         createNotificationChannel();
     }
@@ -71,13 +78,12 @@ public class MainActivity extends AppCompatActivity {
     private void createNotificationChannel() {
         // TODO - Create notification channel
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel("jokes","Joke Notifications", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel(JokeNotification.CHANNEL_ID,"Joke Notifications", NotificationManager.IMPORTANCE_DEFAULT);
             channel.enableVibration(true);
             channel.setDescription("Chuck norris jokes");
 
             NotificationManager nm = getSystemService(NotificationManager.class);
             nm.createNotificationChannel(channel);
-
         }
 
     }
@@ -86,7 +92,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void scheduleJoke() {
 
+        Intent intent = new Intent(this, JokesReceiver.class);
+        intent.setAction("JOKE NOTIFICATION");
+        PendingIntent pendingIntent = PendingIntent.
+                getBroadcast(this, 43, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 5000,pendingIntent );
 
     }
 
