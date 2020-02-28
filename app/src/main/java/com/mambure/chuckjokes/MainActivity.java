@@ -1,5 +1,8 @@
 package com.mambure.chuckjokes;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         Button getJokeButton = findViewById(R.id.btnGetJoke);
         getJokeButton.setOnClickListener(v -> getJoke());
 
-
+        createNotificationChannel();
     }
 
     @Override
@@ -66,13 +69,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createNotificationChannel() {
+        // TODO - Create notification channel
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("jokes","Joke Notifications", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.enableVibration(true);
+            channel.setDescription("Chuck norris jokes");
 
+            NotificationManager nm = getSystemService(NotificationManager.class);
+            nm.createNotificationChannel(channel);
+
+        }
 
     }
 
 
 
     private void scheduleJoke() {
+
+
 
     }
 
