@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         getJokeButton.setOnClickListener(v -> getJoke());
 
         Button scheduleButton = findViewById(R.id.btnSchedule);
-        scheduleButton.setOnClickListener(v -> scheduleJoke());
+        scheduleButton.setOnClickListener(v -> scheduleJokeWithWorkManager());
 
         createNotificationChannel();
     }
@@ -99,11 +99,10 @@ public class MainActivity extends AppCompatActivity {
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 5000,pendingIntent );
-
     }
 
     private void scheduleJokeWithWorkManager() {
-
+        JokeWorker.enqueueWork(getApplicationContext());
     }
 
 

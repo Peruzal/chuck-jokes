@@ -13,11 +13,15 @@ import com.mambure.chuckjokes.data.RemoteJokeRepository;
 
 import java.util.concurrent.CountDownLatch;
 
+import javax.net.ssl.HttpsURLConnection;
+
 public class JokesReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction() != null && intent.getAction() == "JOKE NOTIFICATION") {
+//            String joke = HttpRequestUtil.makeRequest(MainActivity.JOKES_SERVER_URL);
+            JokeNotification.notify(context, "Notification from receiver");
 //           RemoteJokeRepository jokeRepository = new RemoteJokeRepository(context);
 //
 //           final CountDownLatch latch = new CountDownLatch(1);
@@ -40,6 +44,6 @@ public class JokesReceiver extends BroadcastReceiver {
 //            }
         }
 
-        JokeNotification.notify(context, "Notification from receiver");
+
     }
 }
